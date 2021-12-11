@@ -44,7 +44,7 @@ build: | build-frontend build-backend ; $(info $(M) building…)
 ## build-frontend: Build frontend
 .PHONY: build-frontend
 build-frontend: | ; $(info $(M) building frontend…)
-	$Q cd frontend && npm ci && npm run build
+	$Q cd frontend && yarn && npm run build
 
 ## build-backend: Build backend
 .PHONY: build-backend
