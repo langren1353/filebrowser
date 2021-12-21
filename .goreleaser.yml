@@ -56,9 +56,9 @@ dockers:
       - "langren1353/filebrowser-ckplayer:{{ .Tag }}-amd64"
       - "langren1353/filebrowser-ckplayer:v{{ .Major }}-amd64"
     extra_files:
-      - docker/root
+      - docker_config.json
   -
-    dockerfile: Dockerfile.aarch64
+    dockerfile: Dockerfile
     use: buildx
     build_flag_templates:
       - "--pull"
@@ -74,9 +74,9 @@ dockers:
       - "langren1353/filebrowser-ckplayer:{{ .Tag }}-arm64"
       - "langren1353/filebrowser-ckplayer:v{{ .Major }}-arm64"
     extra_files:
-      - docker/root
+      - docker_config.json
   -
-    dockerfile: Dockerfile.armhf
+    dockerfile: Dockerfile
     use: buildx
     build_flag_templates:
       - "--pull"
@@ -93,9 +93,9 @@ dockers:
       - "langren1353/filebrowser-ckplayer:{{ .Tag }}-armv6"
       - "langren1353/filebrowser-ckplayer:v{{ .Major }}-armv6"
     extra_files:
-      - docker/root
+      - docker_config.json
   -
-    dockerfile: Dockerfile.armhf
+    dockerfile: Dockerfile
     use: buildx
     build_flag_templates:
       - "--pull"
@@ -111,6 +111,81 @@ dockers:
     image_templates:
       - "langren1353/filebrowser-ckplayer:{{ .Tag }}-armv7"
       - "langren1353/filebrowser-ckplayer:v{{ .Major }}-armv7"
+    extra_files:
+      - docker_config.json
+## s6 based docker images
+  -
+    dockerfile: Dockerfile.s6
+    use: buildx
+    build_flag_templates:
+      - "--pull"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.name={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+      - "--label=org.opencontainers.image.source={{.GitURL}}"
+      - "--platform=linux/amd64"
+    goos: linux
+    goarch: amd64
+    image_templates:
+      - "langren1353/filebrowser-ckplayer:{{ .Tag }}-amd64-s6"
+      - "langren1353/filebrowser-ckplayer:v{{ .Major }}-amd64-s6"
+    extra_files:
+      - docker/root
+  -
+    dockerfile: Dockerfile.s6.aarch64
+    use: buildx
+    build_flag_templates:
+      - "--pull"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.name={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+      - "--label=org.opencontainers.image.source={{.GitURL}}"
+      - "--platform=linux/arm64"
+    goos: linux
+    goarch: arm64
+    image_templates:
+      - "langren1353/filebrowser-ckplayer:{{ .Tag }}-arm64-s6"
+      - "langren1353/filebrowser-ckplayer:v{{ .Major }}-arm64-s6"
+    extra_files:
+      - docker/root
+  -
+    dockerfile: Dockerfile.s6.armhf
+    use: buildx
+    build_flag_templates:
+      - "--pull"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.name={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+      - "--label=org.opencontainers.image.source={{.GitURL}}"
+      - "--platform=linux/arm/v6"
+    goos: linux
+    goarch: arm
+    goarm: '6'
+    image_templates:
+      - "langren1353/filebrowser-ckplayer:{{ .Tag }}-armv6-s6"
+      - "langren1353/filebrowser-ckplayer:v{{ .Major }}-armv6-s6"
+    extra_files:
+      - docker/root
+  -
+    dockerfile: Dockerfile.s6.armhf
+    use: buildx
+    build_flag_templates:
+      - "--pull"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.name={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+      - "--label=org.opencontainers.image.source={{.GitURL}}"
+      - "--platform=linux/arm/v7"
+    goos: linux
+    goarch: arm
+    goarm: '7'
+    image_templates:
+      - "langren1353/filebrowser-ckplayer:{{ .Tag }}-armv7-s6"
+      - "langren1353/filebrowser-ckplayer:v{{ .Major }}-armv7-s6"
     extra_files:
       - docker/root
 docker_manifests:
@@ -132,6 +207,25 @@ docker_manifests:
       - "langren1353/filebrowser-ckplayer:v{{ .Major }}-arm64"
       - "langren1353/filebrowser-ckplayer:v{{ .Major }}-armv6"
       - "langren1353/filebrowser-ckplayer:v{{ .Major }}-armv7"
+## s6 image manifests
+  - name_template: "langren1353/filebrowser-ckplayer:s6"
+    image_templates:
+      - "langren1353/filebrowser-ckplayer:{{ .Tag }}-amd64-s6"
+      - "langren1353/filebrowser-ckplayer:{{ .Tag }}-arm64-s6"
+      - "langren1353/filebrowser-ckplayer:{{ .Tag }}-armv6-s6"
+      - "langren1353/filebrowser-ckplayer:{{ .Tag }}-armv7-s6"
+  - name_template: "langren1353/filebrowser-ckplayer:{{ .Tag }}-s6"
+    image_templates:
+      - "langren1353/filebrowser-ckplayer:{{ .Tag }}-amd64-s6"
+      - "langren1353/filebrowser-ckplayer:{{ .Tag }}-arm64-s6"
+      - "langren1353/filebrowser-ckplayer:{{ .Tag }}-armv6-s6"
+      - "langren1353/filebrowser-ckplayer:{{ .Tag }}-armv7-s6"
+  - name_template: "langren1353/filebrowser-ckplayer:v{{ .Major }}-s6"
+    image_templates:
+      - "langren1353/filebrowser-ckplayer:v{{ .Major }}-amd64-s6"
+      - "langren1353/filebrowser-ckplayer:v{{ .Major }}-arm64-s6"
+      - "langren1353/filebrowser-ckplayer:v{{ .Major }}-armv6-s6"
+      - "langren1353/filebrowser-ckplayer:v{{ .Major }}-armv7-s6"
 #brews:
 #  - name: filebrowser-ckplayer
 #    tap:
