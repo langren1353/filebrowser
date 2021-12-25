@@ -3,7 +3,7 @@ name: main
 on:
   push:
     branches:
-      - 'master'
+      - 'ckplayer'
     tags:
       - 'v*'
   pull_request:
