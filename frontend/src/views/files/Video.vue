@@ -22,7 +22,6 @@ export default {
     },
   },
   mounted() {
-    const process = this.getProcess();
     this.instance = new DPlayer({
       container: this.$refs.VideoPlayRef,
       video: {
@@ -31,7 +30,7 @@ export default {
     });
     // 绑定事件
     this.instance.on("play", () => {
-      this.instance.seek(process);
+      this.instance.seek(this.getProcess());
     });
     this.instance.on("timeupdate", () => {
       this.timeHandler(this.instance.video.currentTime);
