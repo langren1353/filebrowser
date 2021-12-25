@@ -1,7 +1,14 @@
 <template>
-  <div id="file-video" ref="player" style="height: 100%; width: 100%" />
+  <div
+    ref="VideoPlayRef"
+    id="dplayer"
+    style="height: calc(100% - 2px); width: 100%"
+  ></div>
 </template>
+
 <script>
+import DPlayer from "dplayer";
+
 export default {
   props: {
     src: {
@@ -9,48 +16,47 @@ export default {
       default: "",
     },
   },
-  data() {
-    return {
-      instance: null,
-      videoConfig: {
-        container: "#file-video", //“#”代表容器的ID，“`.`”或“”代表容器的class
-        variable: "player", // 播放函数名称，该属性必需设置，值等于下面的new ckplayer()的对象
-        video: this.src, // 视频地址
-        mobileCkControls: true, // 移动端h5显示控制栏
-        overspread: false, //是否让视频铺满播放器
-        seek: 0, // 默认需要跳转的秒数
-      },
-    };
-  },
   computed: {
     localKey() {
-      return this.src.replace(/t=d+/, ""); // 避免时间戳的干扰
+      return this.src.replace(/(t|k)=\d+/, ""); // 避免时间戳的干扰
     },
   },
   mounted() {
-    this.loadProcess();
-    // eslint-disable-next-line no-undef
-    this.instance = new ckplayer(this.videoConfig); //初始化播放器
-    window.player = this.instance;
-    this.$nextTick(() => this.loadHandler());
+    const process = this.getProcess();
+    this.instance = new DPlayer({
+      container: this.$refs.VideoPlayRef,
+      video: {
+        url: this.src,
+      },
+    });
+    // 绑定事件
+    this.instance.on("play", () => {
+      this.instance.seek(process);
+    });
+    this.instance.on("timeupdate", () => {
+      this.timeHandler(this.instance.video.currentTime);
+    });
   },
   beforeDestroy() {
-    this.instance.videoPause();
-    this.instance = null;
-    window.player = null;
+    this.instance.destroy();
+  },
+  data() {
+    return {
+      instance: null,
+    };
   },
   methods: {
-    loadProcess() {
-      this.videoConfig.seek = localStorage.getItem(this.localKey) || 0;
-    },
-    loadHandler() {
-      this.instance.addListener("time", this.timeHandler); //监听播放时间
-      this.instance.addListener("ended", this.VideoPlayEndedHandler); //监听播放结束
+    getProcess() {
+      const val = localStorage.getItem(this.localKey) || 0;
+      return Math.max(val - 1, 0);
     },
     timeHandler(time) {
-      localStorage.setItem(this.localKey, time);
+      if (time !== 0) {
+        localStorage.setItem(this.localKey, time);
+      }
     },
-    VideoPlayEndedHandler() {},
   },
 };
 </script>
+
+<style lang="scss" scoped></style>
