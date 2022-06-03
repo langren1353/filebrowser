@@ -19,6 +19,9 @@ export default {
         mobileCkControls: true, // 移动端h5显示控制栏
         overspread: false, //是否让视频铺满播放器
         seek: 0, // 默认需要跳转的秒数
+        playbackrateOpen: true, //是否开启控制栏倍速选项
+        playbackrateList: [0.75, 1, 1.25, 1.5, 2], //倍速配置值
+        keyVolume: 1, //是否启用键盘控制音量调节，0=不启用，1=启用，2=全屏时才启用
       },
     };
   },
