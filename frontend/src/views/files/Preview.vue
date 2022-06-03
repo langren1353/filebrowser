@@ -108,7 +108,7 @@
             </a>
             <a
               target="_blank"
-              :href="downloadUrl + '&inline=true'"
+              :href="raw"
               class="button button--flat"
               v-if="!req.isDir"
             >
@@ -150,7 +150,7 @@
 <script>
 import { mapState } from "vuex";
 import { files as api } from "@/api";
-import { baseURL, resizePreview } from "@/utils/constants";
+import { resizePreview } from "@/utils/constants";
 import url from "@/utils/url";
 import throttle from "lodash.throttle";
 import HeaderBar from "@/components/header/HeaderBar";
@@ -193,23 +193,14 @@ export default {
       return this.nextLink !== "";
     },
     downloadUrl() {
-      return `${baseURL}/api/raw${url.encodePath(this.req.path)}?auth=${
-        this.jwt
-      }`;
-    },
-    previewUrl() {
-      // reload the image when the file is replaced
-      const key = Date.parse(this.req.modified);
-
-      if (this.req.type === "image" && !this.fullSize) {
-        return `${baseURL}/api/preview/big${url.encodePath(
-          this.req.path
-        )}?k=${key}`;
-      }
-      return `${baseURL}/api/raw${url.encodePath(this.req.path)}?k=${key}`;
+      return api.getDownloadURL(this.req);
     },
     raw() {
-      return `${this.previewUrl}&inline=true`;
+      if (this.req.type === "image" && !this.fullSize) {
+        return api.getPreviewURL(this.req, "big");
+      }
+
+      return api.getDownloadURL(this.req, true);
     },
     showMore() {
       return this.$store.state.show === "more";
@@ -284,9 +275,7 @@ export default {
       }
 
       if (this.req.subtitles) {
-        this.subtitles = this.req.subtitles.map(
-          (sub) => `${baseURL}/api/raw${sub}?inline=true`
-        );
+        this.subtitles = api.getSubtitlesURL(this.req);
       }
 
       let dirs = this.$route.fullPath.split("/");
@@ -328,15 +317,14 @@ export default {
         return;
       }
     },
-    prefetchUrl: function (item) {
-      const key = Date.parse(item.modified);
-      if (item.type === "image" && !this.fullSize) {
-        return `${baseURL}/api/preview/big${item.path}?k=${key}&inline=true`;
-      } else if (item.type === "image") {
-        return `${baseURL}/api/raw${item.path}?k=${key}&inline=true`;
-      } else {
+    prefetchUrl(item) {
+      if (item.type !== "image") {
         return "";
       }
+
+      return this.fullSize
+        ? api.getDownloadURL(item, true)
+        : api.getPreviewURL(item, "big");
     },
     openMore() {
       this.$store.commit("showHover", "more");
@@ -366,7 +354,7 @@ export default {
       this.$router.push({ path: uri });
     },
     download() {
-      api.download(null, this.$route.path);
+      window.open(this.downloadUrl);
     },
   },
 };

@@ -227,9 +227,9 @@ docker_manifests:
       - "langren1353/filebrowser-dplayer:v{{ .Major }}-armv6-s6"
       - "langren1353/filebrowser-dplayer:v{{ .Major }}-armv7-s6"
 #brews:
-#  - name: filebrowser-dplayer
+#  - name: filebrowser
 #    tap:
-#      owner: langren1353
+#      owner: filebrowser
 #      name: homebrew-tap
 #    folder: Formula
 #    homepage: https://filebrowser.org
