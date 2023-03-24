@@ -2,6 +2,62 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.23.0](https://github.com/filebrowser/filebrowser/compare/v2.22.4...v2.23.0) (2022-11-05)
+
+
+### Features
+
+* add rtl support ([#2178](https://github.com/filebrowser/filebrowser/issues/2178)) ([2c14146](https://github.com/filebrowser/filebrowser/commit/2c14146a314bb271be66a36c63b64852a2848e26))
+* hebrew translation ([#2168](https://github.com/filebrowser/filebrowser/issues/2168)) ([a49105d](https://github.com/filebrowser/filebrowser/commit/a49105db1d5f0d8f3d6641940ea86da959ffe006))
+* hook authentication method ([dda9a38](https://github.com/filebrowser/filebrowser/commit/dda9a389f387e94643a9a2ae56027260b210152a))
+* update Polish translation ([#2089](https://github.com/filebrowser/filebrowser/issues/2089)) ([57c99e0](https://github.com/filebrowser/filebrowser/commit/57c99e0e261b4ed4c2cf468ce3ab09f1a440b359))
+
+
+### Bug Fixes
+
+* missing video controls on mobile ([#2180](https://github.com/filebrowser/filebrowser/issues/2180)) ([a5757b9](https://github.com/filebrowser/filebrowser/commit/a5757b94e8ed492d454b9e427b7f45824cc56c5c))
+* modify the delete confirmation interface logic. ([#2138](https://github.com/filebrowser/filebrowser/issues/2138)) ([0401adf](https://github.com/filebrowser/filebrowser/commit/0401adf7f4dd76760fe26b5baee02ebc726b51a9))
+
+
+### Build
+
+* **deps:** bump ansi-html and webpack-dev-server in /frontend ([#2184](https://github.com/filebrowser/filebrowser/issues/2184)) ([3a0dace](https://github.com/filebrowser/filebrowser/commit/3a0dace9a93f9d57855801de548891010cf0830e))
+* **deps:** bump terser from 4.8.0 to 4.8.1 in /frontend ([#2054](https://github.com/filebrowser/filebrowser/issues/2054)) ([aaed985](https://github.com/filebrowser/filebrowser/commit/aaed985699b3c63092ecb02c8bc07634123360ab))
+
+### [2.22.4](https://github.com/filebrowser/filebrowser/compare/v2.22.3...v2.22.4) (2022-07-18)
+
+
+### Bug Fixes
+
+* disable cookie auth for non GET requests ([80030de](https://github.com/filebrowser/filebrowser/commit/80030dee32d161043766d57ba4e0ad0b0d99290b))
+
+
+### Build
+
+* **deps:** bump moment from 2.29.2 to 2.29.4 in /frontend ([#2036](https://github.com/filebrowser/filebrowser/issues/2036)) ([cb43770](https://github.com/filebrowser/filebrowser/commit/cb437700255e41ff559b9f5a99ab4290b2f8df87))
+* **deps:** bump shell-quote from 1.7.2 to 1.7.3 in /frontend ([#2025](https://github.com/filebrowser/filebrowser/issues/2025)) ([eaba7e5](https://github.com/filebrowser/filebrowser/commit/eaba7e5255f960141e0fc1557f87073df9f6d66a))
+
+### [2.22.3](https://github.com/filebrowser/filebrowser/compare/v2.22.2...v2.22.3) (2022-07-05)
+
+
+### Bug Fixes
+
+* use correct field name in user put api ([#2026](https://github.com/filebrowser/filebrowser/issues/2026)) ([d94acdd](https://github.com/filebrowser/filebrowser/commit/d94acdd89a0069fe87107024fd332a0d59a112fc))
+
+### [2.22.2](https://github.com/filebrowser/filebrowser/compare/v2.22.1...v2.22.2) (2022-07-01)
+
+
+### Bug Fixes
+
+* display disk capacity in a correct format ([#2013](https://github.com/filebrowser/filebrowser/issues/2013)) ([dec3d62](https://github.com/filebrowser/filebrowser/commit/dec3d629d42de567aa708154ebc4e03b5223608c))
+* don't calculate usage for files ([#1973](https://github.com/filebrowser/filebrowser/issues/1973)) ([577c0ef](https://github.com/filebrowser/filebrowser/commit/577c0efa9cff13628d5e3bac710ef568a00949e0)), closes [#1972](https://github.com/filebrowser/filebrowser/issues/1972) [#1967](https://github.com/filebrowser/filebrowser/issues/1967)
+* preview url building fix ([#1976](https://github.com/filebrowser/filebrowser/issues/1976)) ([dcf0bc6](https://github.com/filebrowser/filebrowser/commit/dcf0bc65bfcfc7df3804d7392598a92019468cf7))
+
+
+### Build
+
+* **backend:** upgrade golangci-lint to 1.46.2 ([#1991](https://github.com/filebrowser/filebrowser/issues/1991)) ([8118afd](https://github.com/filebrowser/filebrowser/commit/8118afd0ac0d25f4503c98879369764c35e7408e))
+
 ### [2.22.1](https://github.com/filebrowser/filebrowser/compare/v2.22.0...v2.22.1) (2022-06-06)
 
 
