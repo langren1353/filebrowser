@@ -6,9 +6,10 @@ import (
 	"net/http"
 	"sort"
 	"strconv"
-	"strings"
 
 	"github.com/gorilla/mux"
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 
 	"github.com/filebrowser/filebrowser/v2/errors"
 	"github.com/filebrowser/filebrowser/v2/users"
@@ -25,7 +26,7 @@ type modifyUserRequest struct {
 
 func getUserID(r *http.Request) (uint, error) {
 	vars := mux.Vars(r)
-	i, err := strconv.ParseUint(vars["id"], 10, 0) //nolint:gomnd
+	i, err := strconv.ParseUint(vars["id"], 10, 0)
 	if err != nil {
 		return 0, err
 	}
@@ -141,7 +142,7 @@ var userPostHandler = withAdmin(func(w http.ResponseWriter, r *http.Request, d *
 		return http.StatusInternalServerError, err
 	}
 
-	w.Header().Set("Location", "/settings/users/"+strconv.FormatUint(uint64(req.Data.ID), 10)) //nolint:gomnd
+	w.Header().Set("Location", "/settings/users/"+strconv.FormatUint(uint64(req.Data.ID), 10))
 	return http.StatusCreated, nil
 })
 
@@ -176,7 +177,7 @@ var userPutHandler = withSelfOrAdmin(func(w http.ResponseWriter, r *http.Request
 	}
 
 	for k, v := range req.Which {
-		v = strings.Title(v)
+		v = cases.Title(language.English, cases.NoLower).String(v)
 		req.Which[k] = v
 
 		if v == "Password" {

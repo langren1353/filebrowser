@@ -45,7 +45,7 @@
         </button>
 
         <button
-          v-if="authMethod == 'json'"
+          v-if="canLogout"
           @click="logout"
           class="action"
           id="logout"
@@ -82,7 +82,9 @@
 
     <div
       class="credits"
-      v-if="$router.currentRoute.path.includes('/files/')"
+      v-if="
+        $router.currentRoute.path.includes('/files/') && !disableUsedPercentage
+      "
       style="width: 90%; margin: 2em 2.5em 3em 2.5em"
     >
       <progress-bar :val="usage.usedPercentage" size="small"></progress-bar>
@@ -116,8 +118,9 @@ import {
   version,
   signup,
   disableExternal,
+  disableUsedPercentage,
   noAuth,
-  authMethod,
+  loginPage,
 } from "@/utils/constants";
 import { files as api } from "@/api";
 import ProgressBar from "vue-simple-progress";
@@ -137,8 +140,8 @@ export default {
     signup: () => signup,
     version: () => version,
     disableExternal: () => disableExternal,
-    noAuth: () => noAuth,
-    authMethod: () => authMethod,
+    disableUsedPercentage: () => disableUsedPercentage,
+    canLogout: () => !noAuth && loginPage,
   },
   asyncComputed: {
     usage: {
@@ -147,11 +150,14 @@ export default {
           ? this.$route.path
           : this.$route.path + "/";
         let usageStats = { used: 0, total: 0, usedPercentage: 0 };
+        if (this.disableUsedPercentage) {
+          return usageStats;
+        }
         try {
           let usage = await api.usage(path);
           usageStats = {
-            used: prettyBytes(usage.used),
-            total: prettyBytes(usage.total),
+            used: prettyBytes(usage.used, { binary: true }),
+            total: prettyBytes(usage.total, { binary: true }),
             usedPercentage: Math.round((usage.used / usage.total) * 100),
           };
         } catch (error) {

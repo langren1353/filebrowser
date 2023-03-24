@@ -83,6 +83,8 @@
     "help": "Pomoc"
   },
   "languages": {
+    "he": "עברית",
+    "hu": "Magyar",
     "ar": "العربية",
     "de": "Deutsch",
     "en": "English",
@@ -184,6 +186,7 @@
     "customStylesheet": "Vlastný Stylesheet",
     "defaultUserDescription": "Toto sú predvolané nastavenia nového používateľa.",
     "disableExternalLinks": "Vypnúť externé odkazy (okrem dokumentácie)",
+    "disableUsedDiskPercentage": "Disable used disk percentage graph",
     "documentation": "dokumentácia",
     "examples": "Príklady",
     "executeOnShell": "Vykonať cez shell",
