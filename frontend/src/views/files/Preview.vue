@@ -174,7 +174,6 @@ export default {
       nextLink: "",
       listing: null,
       name: "",
-      subtitles: [],
       fullSize: false,
       showNav: true,
       navTimeout: null,
@@ -207,6 +206,12 @@ export default {
     },
     isResizeEnabled() {
       return resizePreview;
+    },
+    subtitles() {
+      if (this.req.subtitles) {
+        return api.getSubtitlesURL(this.req);
+      }
+      return [];
     },
   },
   watch: {
@@ -272,10 +277,6 @@ export default {
         !this.$refs.player.ended
       ) {
         this.autoPlay = false;
-      }
-
-      if (this.req.subtitles) {
-        this.subtitles = api.getSubtitlesURL(this.req);
       }
 
       let dirs = this.$route.fullPath.split("/");
