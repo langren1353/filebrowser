@@ -117,7 +117,7 @@ dockers:
     extra_files:
       - docker_config.json
       - healthcheck.sh
-## s6 based docker images
+  ## s6 based docker images
   -
     dockerfile: Dockerfile.s6
     use: buildx
