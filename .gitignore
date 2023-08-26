@@ -30,3 +30,6 @@ yarn-error.log*
 *.sw*
 bin/
 build/
+
+/frontend/dist/*
+!/frontend/dist/.gitkeep
