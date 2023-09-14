@@ -3,11 +3,11 @@ project_name: filebrowser
 env:
   - GO111MODULE=on
 
-build:
+builds:
   env:
     - CGO_ENABLED=0
   ldflags:
-    - -s -w -X github.com/langren1353/filebrowser/v2/version.Version={{ .Version }} -X github.com/langren1353/filebrowser/v2/version.CommitSHA={{ .ShortCommit }}
+    - -s -w -X github.com/filebrowser/filebrowser/v2/version.Version={{ .Version }} -X github.com/filebrowser/filebrowser/v2/version.CommitSHA={{ .ShortCommit }}
   main: main.go
   binary: filebrowser
   goos:
@@ -20,6 +20,7 @@ build:
     - 386
     - arm
     - arm64
+    - riscv64
   goarm:
     - 5
     - 6
