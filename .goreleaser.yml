@@ -3,7 +3,7 @@ project_name: filebrowser
 env:
   - GO111MODULE=on
 
-build:
+builds:
   env:
     - CGO_ENABLED=0
   ldflags:
@@ -117,7 +117,7 @@ dockers:
     extra_files:
       - docker_config.json
       - healthcheck.sh
-## s6 based docker images
+  ## s6 based docker images
   -
     dockerfile: Dockerfile.s6
     use: buildx
@@ -170,7 +170,7 @@ docker_manifests:
       - "langren1353/filebrowser-dplayer:v{{ .Major }}-amd64"
       - "langren1353/filebrowser-dplayer:v{{ .Major }}-arm64"
       - "langren1353/filebrowser-dplayer:v{{ .Major }}-armv7"
-## s6 image manifests
+  ## s6 image manifests
   - name_template: "langren1353/filebrowser-dplayer:s6"
     image_templates:
       - "langren1353/filebrowser-dplayer:{{ .Tag }}-amd64-s6"
