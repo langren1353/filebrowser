@@ -156,7 +156,7 @@ import throttle from "lodash.throttle";
 import HeaderBar from "@/components/header/HeaderBar.vue";
 import Action from "@/components/header/Action.vue";
 import ExtendedImage from "@/components/files/ExtendedImage.vue";
-import Video from "./Video";
+import Video from "./Video.vue";
 
 const mediaTypes = ["image", "video", "audio", "blob"];
 
